@@ -1,0 +1,7 @@
+---
+zabbix_list:
+   - zabbix
+   - zabbix-server
+   - zabbix-server-mysql
+   - zabbix-web-mysql
+   - zabbix-agent

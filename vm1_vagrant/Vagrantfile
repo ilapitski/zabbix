@@ -1,0 +1,32 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure(2) do |config|
+
+#config.vm.provision "shell", inline: "echo Apache_server_install && yum update -y && yum install -y httpd && chkconfig httpd on && /etc/init.d/httpd start"
+
+$script = <<SCRIPT
+echo Provisioning...
+echo "192.168.33.10    zabbix-server" >> /etc/hosts
+SCRIPT
+
+config.vm.provision "shell", inline:$script  # provisioning
+
+#config.vm.provision "ansible" do |ansible|
+ #   ansible.playbook = 'provisionz.yml'
+  #  ansible.verbose = 'vv'
+ # end
+
+config.vm.define :vm1 do |vm1|
+    vm1.vm.box = "sbeliakou/centos-6.7-x86_64"
+    vm1.vm.hostname = "zabbix-vm1"
+    vm1.vm.network "private_network", ip: "192.168.33.11"
+    #vm1.vm.network "forwarded_port", guest: 80, host: 8181
+    #vm1.vm.synced_folder ".", "/vagrant", disabled: true
+    #vm1.vm.synced_folder "/root/vagrant/share2", "/vagrant-vm-share", owner: "root", group: "root"
+    	vm1.vm.provider "virtualbox" do |vb1|
+		vb1.name = "zabbix-vm1"
+		vb1.customize ["modifyvm", :id, "--memory", 2048]
+		#vb1.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        end
+   end
+end

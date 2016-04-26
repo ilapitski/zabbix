@@ -1,0 +1,27 @@
+curl -i -X POST -H 'Content-Type: application/json-rpc' -d '{ }' http://zabbix-server/api_jsonrpc.php
+
+
+
+
+curl -i -X POST -H 'Content-Type: application/json-rpc' -d '{"jsonrpc": "2.0", "method": "user.login", "params": { "user": "Admin", "password": "zabbix"}, "id": 1}' http://zabbix-server/api_jsonrpc.php
+
+
+
+
+
+curl -i -X POST -H 'Content-Type: application/json-rpc' -d '{ "jsonrpc": "2.0", "method": "host.delete", "params": [ "13", "32" ], auth": "c1b55e19a3c73b7c626bc399f65167fa", "id": 1 }' http://zabbix-server/api_jsonrpc.php
+
+{ "jsonrpc": "2.0", "method": "host.delete", "params": [ "13", "32" ], auth": "038e1d7b1735c6a5436ee9eae095879e", "id": 1 }
+
+{"jsonrpc": "2.0","method": "host.create","params": {"host": "Linux server","interfaces": [{"type": 1,"main": 1,"useip": 1,"ip": "192.168.33.13","dns": "","port": "10050"}],"groups": [{"groupid": "2"}],"templates": [{"templateid": "10108"}],"inventory_mode": 0,"inventory": {"macaddress_a": "01234","macaddress_b": "56768"}},"auth": "a06fe571ca81ea7fa431de776127e91f","id": 1}
+
+
+curl -i -X POST -H 'Content-Type: application/json-rpc' -d '{"jsonrpc": "2.0", "method": "user.login", "params": { "user": "Admin", "password": "zabbix"}, "id": 1}' http://zabbix-server/api_jsonrpc.php
+
+curl -i -X POST -H 'Content-Type: application/json-rpc' -d '{"jsonrpc": "2.0","method": "host.create","params": {"host": "Linux server","interfaces": [{"type": 1,"main": 1,"useip": 1,"ip": "192.168.33.13","dns": "","port": "10050"}],"groups": [{"groupid": "2"}],"templates": [{"templateid": "10108"}],"inventory_mode": 0,"inventory": {"macaddress_a": "01234","macaddress_b": "56768"}},"auth": "a06fe571ca81ea7fa431de776127e91f","id": 1}' http://zabbix-server/api_jsonrpc.php
+
+
+
+
+
+curl -i -X POST -H 'Content-Type: application/json-rpc' -d '{ }' http://zabbix-server/api_jsonrpc.php

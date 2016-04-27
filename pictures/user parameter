@@ -1,0 +1,5 @@
+custom.process.running[tomcat]
+pgrep -f $1 &> /dev/null && echo 1 || echo 0
+
+
+{Task3_template:custom.process.running["tomcat"].last()}=0 and {Task3_template:custom.process.running["tomcat"].nodata(10)}=0

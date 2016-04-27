@@ -1,0 +1,4 @@
+---
+# defaults file for tomcat
+tomcat_http_port: 8082
+tomcat_ajp_port: 8009

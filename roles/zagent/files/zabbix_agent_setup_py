@@ -1,0 +1,79 @@
+#!/usr/bin/python
+import requests
+import json
+import sys
+
+
+hostname = sys.argv[1]
+host_ip = sys.argv[2]
+host_group_id = sys.argv[3]
+zabbix_username = sys.argv[4]
+zabbix_password = sys.argv[5]
+template_id = sys.argv[6]
+url = sys.argv[7]
+
+
+def get_aut_key():
+    payload = {
+        'jsonrpc': '2.0',
+        'method': 'user.login',
+        'params': {
+            'user': zabbix_username,
+            'password': zabbix_password
+        },
+        'id': '1'
+    }
+    user0 = requests.post(url, data=json.dumps(payload),
+                                headers={'content-type': 'application/json'}, verify=False)
+    result = user0.json()
+    auth_key0 = result['result']
+    return auth_key0
+
+
+def create_host(auth_key):
+    payload = {
+        "jsonrpc": "2.0",
+        "method": "host.create",
+        "params": {
+            "host": hostname,
+            "interfaces": [
+                {
+                    "type": 1,
+                    "main": 1,
+                    "useip": 1,
+                    "ip": host_ip,
+                    "dns": "",
+                    "port": "10050"
+                }
+            ],
+            "groups": [
+                {
+                    "groupid": host_group_id
+                }
+            ],
+            "templates": [
+                {
+                    "templateid": template_id
+                }
+            ],
+            "inventory_mode": 0,
+            "inventory": {
+                "macaddress_a": "01234",
+                "macaddress_b": "56768"
+            }
+        },
+        "auth": auth_key,
+        "id": 1
+    }
+
+    host0 = requests.post(url, data=json.dumps(payload),
+                                 headers={'content-type': 'application/json'}, verify=False)
+    print host0.json()
+    print host0.status_code
+    print host0.text
+    result = host0.json()['result']
+    host_id0 = result['hostids'][0]
+    return host_id0
+
+auth_key1 = get_aut_key()
+host_id = create_host(auth_key1)

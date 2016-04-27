@@ -1,0 +1,9 @@
+---
+# defaults file for zagent
+agent_hostname: zabbix-vm4
+zabbix_server_ip: 192.168.33.10
+host_group_id: 1
+zabbix_username: Admin
+zabbix_password: zabbix
+template_id: 10001
+url: http://zabbix-server/api_jsonrpc.php
